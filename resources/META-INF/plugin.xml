@@ -27,6 +27,9 @@
         <!-- Add your extensions here -->
         <fileTypeFactory implementation="cn.gsein.zjass.lang.JassFileTypeFactory"/>
         <lang.parserDefinition language="Jass" implementationClass="cn.gsein.zjass.parser.JassParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="Jass"
+                                       implementationClass="cn.gsein.zjass.highlighting.JassSyntaxHighlighterFactory"/>
+        <colorSettingsPage implementation="cn.gsein.zjass.highlighting.JassColorSettingsPage" />
     </extensions>
 
     <actions>
