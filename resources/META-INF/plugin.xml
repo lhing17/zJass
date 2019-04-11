@@ -1,0 +1,36 @@
+<idea-plugin>
+    <id>cn.gsein.zjass</id>
+    <name>zJass</name>
+    <version>1.0</version>
+    <vendor email="lhing17@163.com" url="http://www.gsein.cn">George Seinfeld</vendor>
+
+    <description><![CDATA[
+      provision of jass language support.<br>
+      <em>jass highlighting</em>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      This is the 1st version of the zjass plugin, it provides the jass language support.<br>
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="173.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <fileTypeFactory implementation="cn.gsein.zjass.lang.JassFileTypeFactory"/>
+        <lang.parserDefinition language="Jass" implementationClass="cn.gsein.zjass.parser.JassParserDefinition"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+
+</idea-plugin>
