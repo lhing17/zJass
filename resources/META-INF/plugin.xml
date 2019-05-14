@@ -29,7 +29,10 @@
         <lang.parserDefinition language="Jass" implementationClass="cn.gsein.zjass.parser.JassParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Jass"
                                        implementationClass="cn.gsein.zjass.highlighting.JassSyntaxHighlighterFactory"/>
-        <colorSettingsPage implementation="cn.gsein.zjass.highlighting.JassColorSettingsPage" />
+        <colorSettingsPage implementation="cn.gsein.zjass.highlighting.JassColorSettingsPage"/>
+        <completion.contributor language="Jass"
+                                implementationClass="cn.gsein.zjass.completion.JassCompletionContributor"/>
+        <psi.referenceProvider language="Jass" providerClass="cn.gsein.zjass.reference.JassReferenceProvider"/>
     </extensions>
 
     <actions>
