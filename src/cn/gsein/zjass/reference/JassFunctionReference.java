@@ -25,6 +25,10 @@ public class JassFunctionReference extends PsiReferenceBase<PsiElement> implemen
         super(element, rangeInElement);
     }
 
+    public JassFunctionReference(@NotNull PsiElement element) {
+        super(element);
+    }
+
     @NotNull
     @Override
     public ResolveResult[] multiResolve(boolean b) {

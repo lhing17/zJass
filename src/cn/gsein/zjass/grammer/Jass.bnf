@@ -28,7 +28,8 @@ string_expr ::= DOUBLE_QUOTE STRING_CONST DOUBLE_QUOTE | func_call
 number_expr ::= term (MINUS|PLUS term)*
 term ::= factor (MUL|DIV factor) *
 factor ::= func_call|MINUS factor| PLUS factor|LPAREN expr RPAREN|var_name|INTEGER_CONST|REAL_CONST
-func_call ::= func_name LPAREN (var_name (COLON var_name)*|empty) RPAREN
+func_call ::= func_name LPAREN (var_name (COLON var_name)*|empty) RPAREN {mixin="cn.gsein.zjass.psi.impl.JassNamedElementImpl"
+    implements="cn.gsein.zjass.psi.JassNamedElement" methods=[getName setName getNameIdentifier]}
 empty ::=
 func_name ::= ID
 type_def ::= TYPE var_type EXTENDS var_type

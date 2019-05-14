@@ -32,7 +32,7 @@
         <colorSettingsPage implementation="cn.gsein.zjass.highlighting.JassColorSettingsPage"/>
         <completion.contributor language="Jass"
                                 implementationClass="cn.gsein.zjass.completion.JassCompletionContributor"/>
-        <psi.referenceProvider language="Jass" providerClass="cn.gsein.zjass.reference.JassReferenceProvider"/>
+        <psi.referenceContributor language="Jass" implementation="cn.gsein.zjass.reference.JassReferenceContributor" />
     </extensions>
 
     <actions>

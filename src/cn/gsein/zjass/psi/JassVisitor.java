@@ -44,7 +44,7 @@ public class JassVisitor extends PsiElementVisitor {
   }
 
   public void visitFuncCall(@NotNull JassFuncCall o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitFuncDef(@NotNull JassFuncDef o) {
@@ -104,6 +104,10 @@ public class JassVisitor extends PsiElementVisitor {
   }
 
   public void visitVarValue(@NotNull JassVarValue o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull JassNamedElement o) {
     visitPsiElement(o);
   }
 
