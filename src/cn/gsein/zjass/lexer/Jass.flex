@@ -26,7 +26,7 @@ EOL=\R
 WHITE_SPACE=\s+
 DIGITS=\d+
 REAL_CONST=\d+(\.\d*)?
-STRING_CONST=.*
+STRING_CONST=[^\"]*
 EOL_COMMENT=\/\/.*
 MUL_COMMENT="/*" [^*] ~"*/" | "/*" "*"+ "/"
 ID=[a-zA-Z_]\w*
@@ -86,8 +86,8 @@ TYPEID=integer|real|string|timer|timerdialog|trigger
     {ID}               { return ID; }
 }
 <WAITING_STRING> {
-  {STRING_CONST}     { return STRING_CONST; }
   "\""     { yybegin(YYINITIAL); return DOUBLE_QUOTE; }
+  {STRING_CONST}     { return STRING_CONST; }
 }
 
 [^] { return BAD_CHARACTER; }

@@ -11,6 +11,8 @@
     elementTypeHolderClass="cn.gsein.zjass.psi.JassTypes"
     elementTypeClass="cn.gsein.zjass.psi.JassElementType"
     tokenTypeClass="cn.gsein.zjass.psi.JassTokenType"
+
+    psiImplUtilClass = "cn.gsein.zjass.psi.impl.JassPsiImplUtil"
 }
 
 jassFile ::= item_*
