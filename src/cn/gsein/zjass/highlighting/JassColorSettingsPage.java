@@ -12,15 +12,17 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.util.Map;
 
+import static cn.gsein.zjass.highlighting.JassHighlightingData.*;
+
 /**
  * @author G. Seinfeld
  * @date 2019/04/11
  */
 public class JassColorSettingsPage implements ColorSettingsPage {
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
-            new AttributesDescriptor("keywords", JassSyntaxHighlighter.KEYWORDS),
-            new AttributesDescriptor("block comment", JassSyntaxHighlighter.BLOCK_COMMENT),
-            new AttributesDescriptor("end of line comment", JassSyntaxHighlighter.END_OF_LINE_COMMENT),
+            new AttributesDescriptor("keywords", KEYWORDS),
+            new AttributesDescriptor("block comment", BLOCK_COMMENT),
+            new AttributesDescriptor("end of line comment", END_OF_LINE_COMMENT),
     };
     @Nullable
     @Override
