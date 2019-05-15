@@ -1,13 +1,11 @@
 // This is a generated file. Not intended for manual editing.
 package cn.gsein.zjass.psi;
 
-import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
+import org.jetbrains.annotations.*;
+import com.intellij.psi.PsiElement;
 
-public interface JassFuncCall extends JassNamedElement {
+public interface JassFuncCall extends PsiElement {
 
   @Nullable
   JassEmpty getEmpty();
@@ -17,11 +15,5 @@ public interface JassFuncCall extends JassNamedElement {
 
   @NotNull
   List<JassVarName> getVarNameList();
-
-  String getName();
-
-  PsiElement setName(String newName);
-
-  PsiElement getNameIdentifier();
 
 }

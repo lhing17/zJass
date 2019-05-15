@@ -1,15 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package cn.gsein.zjass.parser;
 
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
+import com.intellij.lang.PsiParser;
+import com.intellij.psi.tree.IElementType;
+
 import static cn.gsein.zjass.psi.JassTypes.*;
 import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.tree.TokenSet;
-import com.intellij.lang.PsiParser;
-import com.intellij.lang.LightPsiParser;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class JassParser implements PsiParser, LightPsiParser {
@@ -426,7 +426,8 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // FUNCTION func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*) RETURNS (NOTHING | var_type)
+  // FUNCTION func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*)
+  //     RETURNS (NOTHING | var_type)
   public static boolean func_def(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_def")) return false;
     if (!nextTokenIs(b, FUNCTION)) return false;

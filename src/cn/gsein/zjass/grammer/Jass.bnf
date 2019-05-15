@@ -28,14 +28,15 @@ string_expr ::= DOUBLE_QUOTE STRING_CONST DOUBLE_QUOTE | func_call
 number_expr ::= term (MINUS|PLUS term)*
 term ::= factor (MUL|DIV factor) *
 factor ::= func_call|MINUS factor| PLUS factor|LPAREN expr RPAREN|var_name|INTEGER_CONST|REAL_CONST
-func_call ::= func_name LPAREN (var_name (COLON var_name)*|empty) RPAREN {mixin="cn.gsein.zjass.psi.impl.JassNamedElementImpl"
-    implements="cn.gsein.zjass.psi.JassNamedElement" methods=[getName setName getNameIdentifier]}
+func_call ::= func_name LPAREN (var_name (COLON var_name)*|empty) RPAREN
 empty ::=
 func_name ::= ID
 type_def ::= TYPE var_type EXTENDS var_type
 native_def ::= CONSTANT? NATIVE func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*) RETURNS (NOTHING | var_type)
 func ::= func_def local_def? compound_statment ENDFUNCTION
-func_def ::= FUNCTION func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*) RETURNS (NOTHING | var_type)
+func_def ::= FUNCTION func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*)
+    RETURNS (NOTHING | var_type) {mixin="cn.gsein.zjass.psi.impl.JassNamedElementImpl"
+    implements="cn.gsein.zjass.psi.JassNamedElement" methods=[getName setName getNameIdentifier]}
 local_def ::= LOCAL var_type var_name (ARRAY | (EQ var_value)?)
 compound_statment ::= (call_statement|assign_statement|condition_statement|loop_statement)* return_statement?
 call_statement ::= CALL func_call

@@ -1,14 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package cn.gsein.zjass.psi.impl;
 
-import cn.gsein.zjass.psi.JassAssignStatement;
-import cn.gsein.zjass.psi.JassVarName;
-import cn.gsein.zjass.psi.JassVarValue;
-import cn.gsein.zjass.psi.JassVisitor;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.psi.util.PsiTreeUtil;
+import static cn.gsein.zjass.psi.JassTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import cn.gsein.zjass.psi.*;
 
 public class JassAssignStatementImpl extends ASTWrapperPsiElement implements JassAssignStatement {
 

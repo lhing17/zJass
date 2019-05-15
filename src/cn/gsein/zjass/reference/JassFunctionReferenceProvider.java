@@ -21,7 +21,7 @@ public class JassFunctionReferenceProvider extends PsiReferenceProvider {
             JassFuncCall jassFuncCall = (JassFuncCall) psiElement;
             String functionName = jassFuncCall.getFuncName().getText();
             if (StringUtils.isNotEmpty(functionName)) {
-                return new PsiReference[]{new JassFunctionReference(jassFuncCall.getFuncName())};
+                return new PsiReference[]{new JassFunctionReference(jassFuncCall)};
             }
         }
         return PsiReference.EMPTY_ARRAY;

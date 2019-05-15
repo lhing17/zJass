@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface JassFuncDef extends PsiElement {
+public interface JassFuncDef extends JassNamedElement {
 
   @NotNull
   JassFuncName getFuncName();
@@ -15,5 +15,11 @@ public interface JassFuncDef extends PsiElement {
 
   @NotNull
   List<JassVarType> getVarTypeList();
+
+  String getName();
+
+  PsiElement setName(@NotNull String newName);
+
+  PsiElement getNameIdentifier();
 
 }

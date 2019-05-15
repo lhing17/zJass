@@ -1,17 +1,17 @@
 // This is a generated file. Not intended for manual editing.
 package cn.gsein.zjass.psi.impl;
 
-import cn.gsein.zjass.psi.*;
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import static cn.gsein.zjass.psi.JassTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import cn.gsein.zjass.psi.*;
 
-import java.util.List;
-
-public class JassFuncCallImpl extends JassNamedElementImpl implements JassFuncCall {
+public class JassFuncCallImpl extends ASTWrapperPsiElement implements JassFuncCall {
 
   public JassFuncCallImpl(@NotNull ASTNode node) {
     super(node);
@@ -42,18 +42,6 @@ public class JassFuncCallImpl extends JassNamedElementImpl implements JassFuncCa
   @NotNull
   public List<JassVarName> getVarNameList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, JassVarName.class);
-  }
-
-  public String getName() {
-    return JassPsiImplUtil.getName(this);
-  }
-
-  public PsiElement setName(String newName) {
-    return JassPsiImplUtil.setName(this, newName);
-  }
-
-  public PsiElement getNameIdentifier() {
-    return JassPsiImplUtil.getNameIdentifier(this);
   }
 
 }
