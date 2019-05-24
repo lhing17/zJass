@@ -248,7 +248,7 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // func_call|MINUS factor| PLUS factor|LPAREN expr RPAREN|var_name|INTEGER_CONST|REAL_CONST
+  // func_call|MINUS factor| PLUS factor|LPAREN expr RPAREN|var_name|INTEGER_LITERAL|REAL_LITERAL
   public static boolean factor(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "factor")) return false;
     boolean r;
@@ -258,8 +258,8 @@ public class JassParser implements PsiParser, LightPsiParser {
     if (!r) r = factor_2(b, l + 1);
     if (!r) r = parseTokens(b, 0, LPAREN, EXPR, RPAREN);
     if (!r) r = var_name(b, l + 1);
-    if (!r) r = consumeToken(b, INTEGER_CONST);
-    if (!r) r = consumeToken(b, REAL_CONST);
+    if (!r) r = consumeToken(b, INTEGER_LITERAL);
+    if (!r) r = consumeToken(b, REAL_LITERAL);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

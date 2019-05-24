@@ -24,8 +24,8 @@ import static cn.gsein.zjass.psi.JassTypes.*;
 
 EOL=\R
 WHITE_SPACE=\s+
-DIGITS=\d+
-REAL_CONST=\d+(\.\d*)?
+DIGITS=\$?\d+
+REAL_LITERAL=\d+(\.\d*)?
 STRING_CONST=[^\"]*
 EOL_COMMENT=\/\/.*
 MUL_COMMENT="/*" [^*] ~"*/" | "/*" "*"+ "/"
@@ -45,8 +45,8 @@ TYPEID=integer|real|string|timer|timerdialog|trigger|unit|location|player|event
   "array"            { return ARRAY; }
   "="               { return EQ; }
 
-  {DIGITS}    { return INTEGER_CONST; }
-  {REAL_CONST}       { return REAL_CONST; }
+  {DIGITS}    { return INTEGER_LITERAL; }
+  {REAL_LITERAL}       { return REAL_LITERAL; }
   "+"             { return PLUS; }
   "null"             { return NULL; }
   "\""     { yybegin(WAITING_STRING); return DOUBLE_QUOTE; }

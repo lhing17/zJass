@@ -60,7 +60,7 @@ public interface JassTypes {
   IElementType GT = new JassTokenType("GT");
   IElementType ID = new JassTokenType("ID");
   IElementType IF = new JassTokenType("IF");
-  IElementType INTEGER_CONST = new JassTokenType("INTEGER_CONST");
+  IElementType INTEGER_LITERAL = new JassTokenType("INTEGER_LITERAL");
   IElementType LE = new JassTokenType("LE");
   IElementType LOCAL = new JassTokenType("LOCAL");
   IElementType LOOP = new JassTokenType("LOOP");
@@ -74,7 +74,7 @@ public interface JassTypes {
   IElementType NOTHING = new JassTokenType("NOTHING");
   IElementType NULL = new JassTokenType("NULL");
   IElementType PLUS = new JassTokenType("PLUS");
-  IElementType REAL_CONST = new JassTokenType("REAL_CONST");
+  IElementType REAL_LITERAL = new JassTokenType("REAL_LITERAL");
   IElementType RETURN = new JassTokenType("RETURN");
   IElementType RETURNS = new JassTokenType("RETURNS");
   IElementType RPAREN = new JassTokenType("RPAREN");

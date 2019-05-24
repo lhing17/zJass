@@ -37,7 +37,7 @@ public class JassSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(EOL_COMMENT)) return SyntaxHighlighterBase.pack(END_OF_LINE_COMMENT);
         if (tokenType.equals(MUL_COMMENT)) return SyntaxHighlighterBase.pack(BLOCK_COMMENT);
         if (tokenType.equals(ID)) return SyntaxHighlighterBase.pack(IDENTIFIER);
-        if (tokenType.equals(INTEGER_CONST) || tokenType.equals(REAL_CONST)) return SyntaxHighlighterBase.pack(NUMBER);
+        if (tokenType.equals(INTEGER_LITERAL) || tokenType.equals(REAL_LITERAL)) return SyntaxHighlighterBase.pack(NUMBER);
         return new TextAttributesKey[0];
     }
 }
