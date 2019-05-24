@@ -172,13 +172,14 @@ public class JassLexer implements FlexLexer {
           "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
                   "\15\10\1\11\1\12\1\13\1\14\1\15\1\16\1\10"+
                   "\1\17\1\20\1\1\1\21\1\22\1\23\1\0\1\10"+
-                  "\1\24\26\10\1\25\1\10\1\26\1\27\2\0\25\10"+
-                  "\1\30\5\10\1\0\1\31\3\10\1\32\2\10\1\33"+
-                  "\1\34\4\10\1\35\4\10\1\36\1\10\1\37\2\10"+
-                  "\1\40\5\10\1\36\1\41\1\42\10\10\1\43\1\10"+
-                  "\1\44\4\10\1\45\5\10\1\46\3\10\1\47\3\10"+
-                  "\1\50\2\10\1\51\2\10\1\52\1\53\1\54\6\10"+
-                  "\1\55\1\56\1\57\3\10\1\60\1\10\1\61";
+                  "\1\24\26\10\1\25\1\10\1\26\1\27\2\0\2\10"+
+                  "\1\30\22\10\1\31\5\10\1\0\1\32\3\10\1\33"+
+                  "\2\10\1\34\1\35\4\10\1\36\4\10\1\37\1\10"+
+                  "\1\40\2\10\1\41\5\10\1\37\1\42\1\43\10\10"+
+                  "\1\44\1\10\1\45\4\10\1\46\5\10\1\47\3\10"+
+                  "\1\50\3\10\1\51\2\10\1\52\2\10\1\53\1\54"+
+                  "\1\55\6\10\1\56\1\57\1\60\3\10\1\61\1\10"+
+                  "\1\62";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[178];
@@ -778,247 +779,252 @@ public class JassLexer implements FlexLexer {
           { return STRING_CONST;
           }
           // fall through
-          case 50: break;
+          case 51: break;
           case 2:
           { return BAD_CHARACTER;
           }
           // fall through
-          case 51: break;
+          case 52: break;
           case 3:
           { return WHITE_SPACE;
           }
           // fall through
-          case 52: break;
+          case 53: break;
           case 4:
           { return INTEGER_CONST;
           }
           // fall through
-          case 53: break;
+          case 54: break;
           case 5:
           { yybegin(WAITING_STRING); return DOUBLE_QUOTE;
           }
           // fall through
-          case 54: break;
+          case 55: break;
           case 6:
           { return DIV;
           }
           // fall through
-          case 55: break;
+          case 56: break;
           case 7:
           { return MUL;
           }
           // fall through
-          case 56: break;
+          case 57: break;
           case 8:
           { return ID;
           }
           // fall through
-          case 57: break;
+          case 58: break;
           case 9:
           { return EQ;
           }
           // fall through
-          case 58: break;
+          case 59: break;
           case 10:
           { return PLUS;
           }
           // fall through
-          case 59: break;
+          case 60: break;
           case 11:
           { return MINUS;
           }
           // fall through
-          case 60: break;
+          case 61: break;
           case 12:
           { return LPAREN;
           }
           // fall through
-          case 61: break;
+          case 62: break;
           case 13:
           { return RPAREN;
           }
           // fall through
-          case 62: break;
+          case 63: break;
           case 14:
           { return COLON;
           }
           // fall through
-          case 63: break;
+          case 64: break;
           case 15:
           { return GT;
           }
           // fall through
-          case 64: break;
+          case 65: break;
           case 16:
           { return LT;
           }
           // fall through
-          case 65: break;
+          case 66: break;
           case 17:
           { yybegin(YYINITIAL); return DOUBLE_QUOTE;
           }
           // fall through
-          case 66: break;
+          case 67: break;
           case 18:
           { return REAL_CONST;
           }
           // fall through
-          case 67: break;
+          case 68: break;
           case 19:
           { return EOL_COMMENT;
           }
           // fall through
-          case 68: break;
+          case 69: break;
           case 20:
           { return IF;
           }
           // fall through
-          case 69: break;
+          case 70: break;
           case 21:
           { return DOUBLE_EQ;
           }
           // fall through
-          case 70: break;
+          case 71: break;
           case 22:
           { return GE;
           }
           // fall through
-          case 71: break;
+          case 72: break;
           case 23:
           { return LE;
           }
           // fall through
-          case 72: break;
-          case 24:
-          { return SET;
-          }
-          // fall through
           case 73: break;
-          case 25:
-          { return MUL_COMMENT;
+          case 24:
+          { return NOT;
           }
           // fall through
           case 74: break;
-          case 26:
-          { return NULL;
+          case 25:
+          { return SET;
           }
           // fall through
           case 75: break;
-          case 27:
-          { return TYPE;
+          case 26:
+          { return MUL_COMMENT;
           }
           // fall through
           case 76: break;
-          case 28:
-          { return THEN;
+          case 27:
+          { return NULL;
           }
           // fall through
           case 77: break;
-          case 29:
-          { return ELSE;
+          case 28:
+          { return TYPE;
           }
           // fall through
           case 78: break;
-          case 30:
-          { return TYPE_ID;
+          case 29:
+          { return THEN;
           }
           // fall through
           case 79: break;
-          case 31:
-          { return LOOP;
+          case 30:
+          { return ELSE;
           }
           // fall through
           case 80: break;
-          case 32:
-          { return CALL;
+          case 31:
+          { return TYPE_ID;
           }
           // fall through
           case 81: break;
-          case 33:
-          { return TAKES;
+          case 32:
+          { return LOOP;
           }
           // fall through
           case 82: break;
-          case 34:
-          { return ENDIF;
+          case 33:
+          { return CALL;
           }
           // fall through
           case 83: break;
-          case 35:
-          { return ARRAY;
+          case 34:
+          { return TAKES;
           }
           // fall through
           case 84: break;
-          case 36:
-          { return LOCAL;
+          case 35:
+          { return ENDIF;
           }
           // fall through
           case 85: break;
-          case 37:
-          { return NATIVE;
+          case 36:
+          { return ARRAY;
           }
           // fall through
           case 86: break;
-          case 38:
-          { return ELSEIF;
+          case 37:
+          { return LOCAL;
           }
           // fall through
           case 87: break;
-          case 39:
-          { return RETURN;
+          case 38:
+          { return NATIVE;
           }
           // fall through
           case 88: break;
-          case 40:
-          { return NOTHING;
+          case 39:
+          { return ELSEIF;
           }
           // fall through
           case 89: break;
-          case 41:
-          { return ENDLOOP;
+          case 40:
+          { return RETURN;
           }
           // fall through
           case 90: break;
-          case 42:
-          { return EXTENDS;
+          case 41:
+          { return NOTHING;
           }
           // fall through
           case 91: break;
-          case 43:
-          { return GLOBALS;
+          case 42:
+          { return ENDLOOP;
           }
           // fall through
           case 92: break;
-          case 44:
-          { return RETURNS;
+          case 43:
+          { return EXTENDS;
           }
           // fall through
           case 93: break;
-          case 45:
-          { return EXITWHEN;
+          case 44:
+          { return GLOBALS;
           }
           // fall through
           case 94: break;
-          case 46:
-          { return CONSTANT;
+          case 45:
+          { return RETURNS;
           }
           // fall through
           case 95: break;
-          case 47:
-          { return FUNCTION;
+          case 46:
+          { return EXITWHEN;
           }
           // fall through
           case 96: break;
-          case 48:
-          { return ENDGLOBALS;
+          case 47:
+          { return CONSTANT;
           }
           // fall through
           case 97: break;
-          case 49:
-          { return ENDFUNCTION;
+          case 48:
+          { return FUNCTION;
           }
           // fall through
           case 98: break;
+          case 49:
+          { return ENDGLOBALS;
+          }
+          // fall through
+          case 99: break;
+          case 50:
+          { return ENDFUNCTION;
+          }
+          // fall through
+          case 100: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

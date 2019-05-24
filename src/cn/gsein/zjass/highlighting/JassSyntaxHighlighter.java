@@ -20,7 +20,7 @@ import static cn.gsein.zjass.psi.JassTypes.*;
 public class JassSyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final List<IElementType> KEYWORDS_LIST = Arrays.asList(
-            TYPE_ID, CONSTANT, NOTHING, ARRAY, CALL, SET, IF, THEN, ELSE, ELSEIF, ENDIF, GLOBALS, ENDGLOBALS,
+            TYPE_ID, CONSTANT, NOTHING, ARRAY, CALL, SET, IF, THEN, ELSE, ELSEIF, ENDIF, GLOBALS, ENDGLOBALS, NOT,
             FUNCTION, ENDFUNCTION, LOOP, ENDLOOP, EXITWHEN, EXTENDS, LOCAL, NATIVE, NULL, RETURN, RETURNS, TAKES, TYPE
     );
 
@@ -33,11 +33,11 @@ public class JassSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
-        if (KEYWORDS_LIST.contains(tokenType))  return SyntaxHighlighterBase.pack(KEYWORDS);
+        if (KEYWORDS_LIST.contains(tokenType)) return SyntaxHighlighterBase.pack(KEYWORDS);
         if (tokenType.equals(EOL_COMMENT)) return SyntaxHighlighterBase.pack(END_OF_LINE_COMMENT);
         if (tokenType.equals(MUL_COMMENT)) return SyntaxHighlighterBase.pack(BLOCK_COMMENT);
         if (tokenType.equals(ID)) return SyntaxHighlighterBase.pack(IDENTIFIER);
-        if (tokenType.equals(INTEGER_CONST) || tokenType.equals(REAL_CONST))  return SyntaxHighlighterBase.pack(NUMBER);
+        if (tokenType.equals(INTEGER_CONST) || tokenType.equals(REAL_CONST)) return SyntaxHighlighterBase.pack(NUMBER);
         return new TextAttributesKey[0];
     }
 }

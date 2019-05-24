@@ -70,6 +70,7 @@ public interface JassTypes {
   IElementType MUL = new JassTokenType("MUL");
   IElementType MUL_COMMENT = new JassTokenType("MUL_COMMENT");
   IElementType NATIVE = new JassTokenType("NATIVE");
+  IElementType NOT = new JassTokenType("NOT");
   IElementType NOTHING = new JassTokenType("NOTHING");
   IElementType NULL = new JassTokenType("NULL");
   IElementType PLUS = new JassTokenType("PLUS");

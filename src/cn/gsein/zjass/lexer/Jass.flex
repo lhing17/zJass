@@ -72,6 +72,7 @@ TYPEID=integer|real|string|timer|timerdialog|trigger|unit|location|player|event
   "elseif"           { return ELSEIF; }
   "else"             { return ELSE; }
   "endif"            { return ENDIF; }
+  "not"            { return NOT; }
   ">"               { return GT; }
   "=="        { return DOUBLE_EQ; }
   "<"               { return LT; }

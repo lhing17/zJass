@@ -53,7 +53,7 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // number_expr (GT | DOUBLE_EQ | LT | LE | GE) number_expr | string_expr DOUBLE_QUOTE string_expr | var_name | func_call
+  // number_expr (GT | DOUBLE_EQ | LT | LE | GE) number_expr | string_expr DOUBLE_EQ string_expr | var_name | func_call | NOT bool_expr
   public static boolean bool_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "bool_expr")) return false;
     boolean r;
@@ -62,6 +62,7 @@ public class JassParser implements PsiParser, LightPsiParser {
     if (!r) r = bool_expr_1(b, l + 1);
     if (!r) r = var_name(b, l + 1);
     if (!r) r = func_call(b, l + 1);
+    if (!r) r = bool_expr_4(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -90,14 +91,25 @@ public class JassParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // string_expr DOUBLE_QUOTE string_expr
+  // string_expr DOUBLE_EQ string_expr
   private static boolean bool_expr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "bool_expr_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = string_expr(b, l + 1);
-    r = r && consumeToken(b, DOUBLE_QUOTE);
+    r = r && consumeToken(b, DOUBLE_EQ);
     r = r && string_expr(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // NOT bool_expr
+  private static boolean bool_expr_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bool_expr_4")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, NOT);
+    r = r && bool_expr(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
