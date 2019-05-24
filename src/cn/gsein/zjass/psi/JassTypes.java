@@ -24,6 +24,7 @@ public interface JassTypes {
   IElementType FUNC_NAME = new JassElementType("FUNC_NAME");
   IElementType GLOBAL_BLOCK = new JassElementType("GLOBAL_BLOCK");
   IElementType GLOBAL_DECL = new JassElementType("GLOBAL_DECL");
+  IElementType INCLUDE_STATEMENT = new JassElementType("INCLUDE_STATEMENT");
   IElementType LOCAL_DEF = new JassElementType("LOCAL_DEF");
   IElementType LOOP_STATEMENT = new JassElementType("LOOP_STATEMENT");
   IElementType NATIVE_DEF = new JassElementType("NATIVE_DEF");
@@ -60,6 +61,7 @@ public interface JassTypes {
   IElementType GT = new JassTokenType("GT");
   IElementType ID = new JassTokenType("ID");
   IElementType IF = new JassTokenType("IF");
+  IElementType INCLUDE = new JassTokenType("INCLUDE");
   IElementType INTEGER_LITERAL = new JassTokenType("INTEGER_LITERAL");
   IElementType LE = new JassTokenType("LE");
   IElementType LOCAL = new JassTokenType("LOCAL");
@@ -73,13 +75,14 @@ public interface JassTypes {
   IElementType NOT = new JassTokenType("NOT");
   IElementType NOTHING = new JassTokenType("NOTHING");
   IElementType NULL = new JassTokenType("NULL");
+  IElementType NUMBER_SIGN = new JassTokenType("NUMBER_SIGN");
   IElementType PLUS = new JassTokenType("PLUS");
   IElementType REAL_LITERAL = new JassTokenType("REAL_LITERAL");
   IElementType RETURN = new JassTokenType("RETURN");
   IElementType RETURNS = new JassTokenType("RETURNS");
   IElementType RPAREN = new JassTokenType("RPAREN");
   IElementType SET = new JassTokenType("SET");
-  IElementType STRING_CONST = new JassTokenType("STRING_CONST");
+  IElementType STRING_LITERAL = new JassTokenType("STRING_LITERAL");
   IElementType TAKES = new JassTokenType("TAKES");
   IElementType THEN = new JassTokenType("THEN");
   IElementType TYPE = new JassTokenType("TYPE");
@@ -129,6 +132,9 @@ public interface JassTypes {
       }
       else if (type == GLOBAL_DECL) {
         return new JassGlobalDeclImpl(node);
+      }
+      else if (type == INCLUDE_STATEMENT) {
+        return new JassIncludeStatementImpl(node);
       }
       else if (type == LOCAL_DEF) {
         return new JassLocalDefImpl(node);

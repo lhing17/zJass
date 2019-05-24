@@ -17,13 +17,14 @@
 
 jassFile ::= item_*
 
-private item_ ::=  (global_block|type_def|native_def|func|comment)
+private item_ ::=  (include_statement|global_block|type_def|native_def|func|comment)
+include_statement ::= (NUMBER_SIGN INCLUDE DOUBLE_QUOTE STRING_LITERAL? DOUBLE_QUOTE)
 global_block ::= (GLOBALS (global_decl|comment)* ENDGLOBALS)
 global_decl ::= (CONSTANT? var_type var_name (ARRAY | (EQ var_value)?))
 var_type ::= TYPE_ID
 var_name ::= ID
 var_value ::= (string_expr (PLUS string_expr)*|number_expr|NULL)
-string_expr ::= DOUBLE_QUOTE STRING_CONST DOUBLE_QUOTE | func_call
+string_expr ::= DOUBLE_QUOTE STRING_LITERAL? DOUBLE_QUOTE | func_call
 number_expr ::= term (MINUS|PLUS term)*
 term ::= factor (MUL|DIV factor) *
 factor ::= func_call|MINUS factor| PLUS factor|LPAREN expr RPAREN|var_name|INTEGER_LITERAL|REAL_LITERAL

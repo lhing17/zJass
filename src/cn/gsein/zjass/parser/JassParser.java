@@ -550,11 +550,33 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // global_block|type_def|native_def|func|comment
+  // NUMBER_SIGN INCLUDE DOUBLE_QUOTE STRING_LITERAL? DOUBLE_QUOTE
+  public static boolean include_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "include_statement")) return false;
+    if (!nextTokenIs(b, NUMBER_SIGN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, NUMBER_SIGN, INCLUDE, DOUBLE_QUOTE);
+    r = r && include_statement_3(b, l + 1);
+    r = r && consumeToken(b, DOUBLE_QUOTE);
+    exit_section_(b, m, INCLUDE_STATEMENT, r);
+    return r;
+  }
+
+  // STRING_LITERAL?
+  private static boolean include_statement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "include_statement_3")) return false;
+    consumeToken(b, STRING_LITERAL);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // include_statement|global_block|type_def|native_def|func|comment
   static boolean item_(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_")) return false;
     boolean r;
-    r = global_block(b, l + 1);
+    r = include_statement(b, l + 1);
+    if (!r) r = global_block(b, l + 1);
     if (!r) r = type_def(b, l + 1);
     if (!r) r = native_def(b, l + 1);
     if (!r) r = func(b, l + 1);
@@ -804,16 +826,35 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOUBLE_QUOTE STRING_CONST DOUBLE_QUOTE | func_call
+  // DOUBLE_QUOTE STRING_LITERAL? DOUBLE_QUOTE | func_call
   public static boolean string_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "string_expr")) return false;
     if (!nextTokenIs(b, "<string expr>", DOUBLE_QUOTE, ID)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STRING_EXPR, "<string expr>");
-    r = parseTokens(b, 0, DOUBLE_QUOTE, STRING_CONST, DOUBLE_QUOTE);
+    r = string_expr_0(b, l + 1);
     if (!r) r = func_call(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // DOUBLE_QUOTE STRING_LITERAL? DOUBLE_QUOTE
+  private static boolean string_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "string_expr_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, DOUBLE_QUOTE);
+    r = r && string_expr_0_1(b, l + 1);
+    r = r && consumeToken(b, DOUBLE_QUOTE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // STRING_LITERAL?
+  private static boolean string_expr_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "string_expr_0_1")) return false;
+    consumeToken(b, STRING_LITERAL);
+    return true;
   }
 
   /* ********************************************************** */

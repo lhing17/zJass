@@ -26,7 +26,7 @@ EOL=\R
 WHITE_SPACE=\s+
 DIGITS=\$?\d+
 REAL_LITERAL=\d+(\.\d*)?
-STRING_CONST=[^\"]*
+STRING_LITERAL=[^\"]*
 EOL_COMMENT=\/\/.*
 MUL_COMMENT="/*" [^*] ~"*/" | "/*" "*"+ "/"
 ID=[a-zA-Z_]\w*
@@ -56,6 +56,8 @@ TYPEID=integer|real|string|timer|timerdialog|trigger|unit|location|player|event
   "("           { return LPAREN; }
   ")"           { return RPAREN; }
   ","            { return COLON; }
+  "#"            { return NUMBER_SIGN; }
+  "include"  {return INCLUDE;}
   "type"             { return TYPE; }
   "extends"          { return EXTENDS; }
   "native"           { return NATIVE; }
@@ -88,7 +90,7 @@ TYPEID=integer|real|string|timer|timerdialog|trigger|unit|location|player|event
 }
 <WAITING_STRING> {
   "\""     { yybegin(YYINITIAL); return DOUBLE_QUOTE; }
-  {STRING_CONST}     { return STRING_CONST; }
+  {STRING_LITERAL}     { return STRING_LITERAL; }
 }
 
 [^] { return BAD_CHARACTER; }

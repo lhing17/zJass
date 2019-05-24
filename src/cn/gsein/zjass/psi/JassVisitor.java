@@ -63,6 +63,10 @@ public class JassVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitIncludeStatement(@NotNull JassIncludeStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitLocalDef(@NotNull JassLocalDef o) {
     visitPsiElement(o);
   }
