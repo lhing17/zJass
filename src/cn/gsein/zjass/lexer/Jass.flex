@@ -16,7 +16,7 @@ import static cn.gsein.zjass.psi.JassTypes.*;
 %}
 
 %public
-%class _JassLexer
+%class JassLexer
 %implements FlexLexer
 %function advance
 %type IElementType
@@ -30,7 +30,7 @@ STRING_CONST=[^\"]*
 EOL_COMMENT=\/\/.*
 MUL_COMMENT="/*" [^*] ~"*/" | "/*" "*"+ "/"
 ID=[a-zA-Z_]\w*
-TYPEID=integer|real|string|timer|timerdialog|trigger
+TYPEID=integer|real|string|timer|timerdialog|trigger|unit|location|player|event
 
 %state WAITING_STRING
 

@@ -1,15 +1,16 @@
 // This is a generated file. Not intended for manual editing.
 package cn.gsein.zjass.parser;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import com.intellij.lang.PsiParser;
-import com.intellij.psi.tree.IElementType;
-
 import static cn.gsein.zjass.psi.JassTypes.*;
 import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.IFileElementType;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.tree.TokenSet;
+import com.intellij.lang.PsiParser;
+import com.intellij.lang.LightPsiParser;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class JassParser implements PsiParser, LightPsiParser {
@@ -23,83 +24,11 @@ public class JassParser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-    if (t == ASSIGN_STATEMENT) {
-      r = assign_statement(b, 0);
-    }
-    else if (t == BOOL_EXPR) {
-      r = bool_expr(b, 0);
-    }
-    else if (t == CALL_STATEMENT) {
-      r = call_statement(b, 0);
-    }
-    else if (t == COMMENT) {
-      r = comment(b, 0);
-    }
-    else if (t == COMPOUND_STATMENT) {
-      r = compound_statment(b, 0);
-    }
-    else if (t == CONDITION_STATEMENT) {
-      r = condition_statement(b, 0);
-    }
-    else if (t == EMPTY) {
-      r = empty(b, 0);
-    }
-    else if (t == FACTOR) {
-      r = factor(b, 0);
-    }
-    else if (t == FUNC) {
-      r = func(b, 0);
-    }
-    else if (t == FUNC_CALL) {
-      r = func_call(b, 0);
-    }
-    else if (t == FUNC_DEF) {
-      r = func_def(b, 0);
-    }
-    else if (t == FUNC_NAME) {
-      r = func_name(b, 0);
-    }
-    else if (t == GLOBAL_BLOCK) {
-      r = global_block(b, 0);
-    }
-    else if (t == GLOBAL_DECL) {
-      r = global_decl(b, 0);
-    }
-    else if (t == LOCAL_DEF) {
-      r = local_def(b, 0);
-    }
-    else if (t == LOOP_STATEMENT) {
-      r = loop_statement(b, 0);
-    }
-    else if (t == NATIVE_DEF) {
-      r = native_def(b, 0);
-    }
-    else if (t == NUMBER_EXPR) {
-      r = number_expr(b, 0);
-    }
-    else if (t == RETURN_STATEMENT) {
-      r = return_statement(b, 0);
-    }
-    else if (t == STRING_EXPR) {
-      r = string_expr(b, 0);
-    }
-    else if (t == TERM) {
-      r = term(b, 0);
-    }
-    else if (t == TYPE_DEF) {
-      r = type_def(b, 0);
-    }
-    else if (t == VAR_NAME) {
-      r = var_name(b, 0);
-    }
-    else if (t == VAR_TYPE) {
-      r = var_type(b, 0);
-    }
-    else if (t == VAR_VALUE) {
-      r = var_value(b, 0);
+    if (t instanceof IFileElementType) {
+      r = parse_root_(t, b, 0);
     }
     else {
-      r = parse_root_(t, b, 0);
+      r = false;
     }
     exit_section_(b, 0, m, t, r, true, TRUE_CONDITION);
   }
@@ -200,7 +129,7 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (call_statement|assign_statement|condition_statement|loop_statement)* return_statement?
+  // (comment|call_statement|assign_statement|condition_statement|loop_statement)* return_statement?
   public static boolean compound_statment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "compound_statment")) return false;
     boolean r;
@@ -211,7 +140,7 @@ public class JassParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (call_statement|assign_statement|condition_statement|loop_statement)*
+  // (comment|call_statement|assign_statement|condition_statement|loop_statement)*
   private static boolean compound_statment_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "compound_statment_0")) return false;
     while (true) {
@@ -222,11 +151,12 @@ public class JassParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // call_statement|assign_statement|condition_statement|loop_statement
+  // comment|call_statement|assign_statement|condition_statement|loop_statement
   private static boolean compound_statment_0_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "compound_statment_0_0")) return false;
     boolean r;
-    r = call_statement(b, l + 1);
+    r = comment(b, l + 1);
+    if (!r) r = call_statement(b, l + 1);
     if (!r) r = assign_statement(b, l + 1);
     if (!r) r = condition_statement(b, l + 1);
     if (!r) r = loop_statement(b, l + 1);
@@ -345,7 +275,7 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // func_def local_def? compound_statment ENDFUNCTION
+  // func_def comment* local_def? compound_statment ENDFUNCTION
   public static boolean func(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func")) return false;
     if (!nextTokenIs(b, FUNCTION)) return false;
@@ -353,15 +283,27 @@ public class JassParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = func_def(b, l + 1);
     r = r && func_1(b, l + 1);
+    r = r && func_2(b, l + 1);
     r = r && compound_statment(b, l + 1);
     r = r && consumeToken(b, ENDFUNCTION);
     exit_section_(b, m, FUNC, r);
     return r;
   }
 
-  // local_def?
+  // comment*
   private static boolean func_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!comment(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "func_1", c)) break;
+    }
+    return true;
+  }
+
+  // local_def?
+  private static boolean func_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "func_2")) return false;
     local_def(b, l + 1);
     return true;
   }
@@ -511,7 +453,7 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // GLOBALS global_decl* ENDGLOBALS
+  // GLOBALS (global_decl|comment)* ENDGLOBALS
   public static boolean global_block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "global_block")) return false;
     if (!nextTokenIs(b, GLOBALS)) return false;
@@ -524,15 +466,24 @@ public class JassParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // global_decl*
+  // (global_decl|comment)*
   private static boolean global_block_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "global_block_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!global_decl(b, l + 1)) break;
+      if (!global_block_1_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "global_block_1", c)) break;
     }
     return true;
+  }
+
+  // global_decl|comment
+  private static boolean global_block_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "global_block_1_0")) return false;
+    boolean r;
+    r = global_decl(b, l + 1);
+    if (!r) r = comment(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */

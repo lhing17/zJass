@@ -1,14 +1,14 @@
 // This is a generated file. Not intended for manual editing.
 package cn.gsein.zjass.psi.impl;
 
-import cn.gsein.zjass.psi.*;
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
+import static cn.gsein.zjass.psi.JassTypes.*;
+import cn.gsein.zjass.psi.*;
 
 public class JassFuncDefImpl extends JassNamedElementImpl implements JassFuncDef {
 
@@ -43,14 +43,17 @@ public class JassFuncDefImpl extends JassNamedElementImpl implements JassFuncDef
     return PsiTreeUtil.getChildrenOfTypeAsList(this, JassVarType.class);
   }
 
+  @Override
   public String getName() {
     return JassPsiImplUtil.getName(this);
   }
 
+  @Override
   public PsiElement setName(@NotNull String newName) {
     return JassPsiImplUtil.setName(this, newName);
   }
 
+  @Override
   public PsiElement getNameIdentifier() {
     return JassPsiImplUtil.getNameIdentifier(this);
   }

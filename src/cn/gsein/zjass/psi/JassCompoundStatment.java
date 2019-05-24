@@ -14,6 +14,9 @@ public interface JassCompoundStatment extends PsiElement {
   List<JassCallStatement> getCallStatementList();
 
   @NotNull
+  List<JassComment> getCommentList();
+
+  @NotNull
   List<JassConditionStatement> getConditionStatementList();
 
   @NotNull

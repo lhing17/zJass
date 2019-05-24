@@ -28,6 +28,12 @@ public class JassFuncImpl extends ASTWrapperPsiElement implements JassFunc {
 
   @Override
   @NotNull
+  public List<JassComment> getCommentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassComment.class);
+  }
+
+  @Override
+  @NotNull
   public JassCompoundStatment getCompoundStatment() {
     return findNotNullChildByClass(JassCompoundStatment.class);
   }

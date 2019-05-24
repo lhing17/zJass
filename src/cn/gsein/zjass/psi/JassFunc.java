@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface JassFunc extends PsiElement {
 
   @NotNull
+  List<JassComment> getCommentList();
+
+  @NotNull
   JassCompoundStatment getCompoundStatment();
 
   @NotNull

@@ -40,6 +40,12 @@ public class JassCompoundStatmentImpl extends ASTWrapperPsiElement implements Ja
 
   @Override
   @NotNull
+  public List<JassComment> getCommentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassComment.class);
+  }
+
+  @Override
+  @NotNull
   public List<JassConditionStatement> getConditionStatementList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, JassConditionStatement.class);
   }

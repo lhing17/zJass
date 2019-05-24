@@ -17,9 +17,8 @@
 
 jassFile ::= item_*
 
-//
 private item_ ::=  (global_block|type_def|native_def|func|comment)
-global_block ::= (GLOBALS global_decl* ENDGLOBALS)
+global_block ::= (GLOBALS (global_decl|comment)* ENDGLOBALS)
 global_decl ::= (CONSTANT? var_type var_name (ARRAY | (EQ var_value)?))
 var_type ::= TYPE_ID
 var_name ::= ID
@@ -33,12 +32,12 @@ empty ::=
 func_name ::= ID
 type_def ::= TYPE var_type EXTENDS var_type
 native_def ::= CONSTANT? NATIVE func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*) RETURNS (NOTHING | var_type)
-func ::= func_def local_def? compound_statment ENDFUNCTION
+func ::= func_def comment* local_def? compound_statment ENDFUNCTION
 func_def ::= FUNCTION func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*)
     RETURNS (NOTHING | var_type) {mixin="cn.gsein.zjass.psi.impl.JassNamedElementImpl"
     implements="cn.gsein.zjass.psi.JassNamedElement" methods=[getName setName getNameIdentifier]}
 local_def ::= LOCAL var_type var_name (ARRAY | (EQ var_value)?)
-compound_statment ::= (call_statement|assign_statement|condition_statement|loop_statement)* return_statement?
+compound_statment ::= (comment|call_statement|assign_statement|condition_statement|loop_statement)* return_statement?
 call_statement ::= CALL func_call
 assign_statement ::= SET var_name EQ var_value
 condition_statement ::= IF bool_expr THEN compound_statment ((ELSEIF compound_statment)* ELSE compound_statment)? ENDIF
