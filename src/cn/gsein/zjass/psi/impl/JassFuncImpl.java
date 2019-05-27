@@ -45,9 +45,9 @@ public class JassFuncImpl extends ASTWrapperPsiElement implements JassFunc {
   }
 
   @Override
-  @Nullable
-  public JassLocalDef getLocalDef() {
-    return findChildByClass(JassLocalDef.class);
+  @NotNull
+  public List<JassLocalDef> getLocalDefList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassLocalDef.class);
   }
 
 }

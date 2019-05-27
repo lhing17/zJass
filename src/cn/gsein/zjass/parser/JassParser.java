@@ -287,7 +287,7 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // func_def comment* local_def? compound_statment ENDFUNCTION
+  // func_def comment* local_def* compound_statment ENDFUNCTION
   public static boolean func(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func")) return false;
     if (!nextTokenIs(b, FUNCTION)) return false;
@@ -313,10 +313,14 @@ public class JassParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // local_def?
+  // local_def*
   private static boolean func_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_2")) return false;
-    local_def(b, l + 1);
+    while (true) {
+      int c = current_position_(b);
+      if (!local_def(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "func_2", c)) break;
+    }
     return true;
   }
 

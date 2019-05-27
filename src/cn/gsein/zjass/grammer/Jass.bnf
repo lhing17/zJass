@@ -33,7 +33,7 @@ empty ::=
 func_name ::= ID
 type_def ::= TYPE var_type EXTENDS var_type
 native_def ::= CONSTANT? NATIVE func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*) RETURNS (NOTHING | var_type)
-func ::= func_def comment* local_def? compound_statment ENDFUNCTION
+func ::= func_def comment* local_def* compound_statment ENDFUNCTION
 func_def ::= FUNCTION func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*)
     RETURNS (NOTHING | var_type) {mixin="cn.gsein.zjass.psi.impl.JassNamedElementImpl"
     implements="cn.gsein.zjass.psi.JassNamedElement" methods=[getName setName getNameIdentifier]}

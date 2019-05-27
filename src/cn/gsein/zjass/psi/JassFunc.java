@@ -16,7 +16,7 @@ public interface JassFunc extends PsiElement {
   @NotNull
   JassFuncDef getFuncDef();
 
-  @Nullable
-  JassLocalDef getLocalDef();
+  @NotNull
+  List<JassLocalDef> getLocalDefList();
 
 }

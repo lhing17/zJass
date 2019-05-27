@@ -30,7 +30,7 @@ STRING_LITERAL=[^\"]*
 EOL_COMMENT=\/\/.*
 MUL_COMMENT="/*" [^*] ~"*/" | "/*" "*"+ "/"
 ID=[a-zA-Z_]\w*
-TYPEID=integer|real|string|timer|timerdialog|trigger|unit|location|player|event
+TYPEID=integer|real|string|timer|timerdialog|trigger|unit|location|player|event|boolean|texttag
 
 %state WAITING_STRING
 
