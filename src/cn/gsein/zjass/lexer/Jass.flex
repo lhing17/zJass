@@ -24,13 +24,13 @@ import static cn.gsein.zjass.psi.JassTypes.*;
 
 EOL=\R
 WHITE_SPACE=\s+
-DIGITS=\$?\d+
+DIGITS=\$?[0-9A-F]+
 REAL_LITERAL=\d+(\.\d*)?
-STRING_LITERAL=[^\"]*
+STRING_LITERAL=[^\"]*s
 EOL_COMMENT=\/\/.*
 MUL_COMMENT="/*" [^*] ~"*/" | "/*" "*"+ "/"
 ID=[a-zA-Z_]\w*
-TYPEID=integer|real|string|timer|timerdialog|trigger|unit|location|player|event|boolean|texttag
+TYPEID=integer|real|string|timer|timerdialog|trigger|unit|location|player|event|boolean|texttag|item|group
 
 %state WAITING_STRING
 

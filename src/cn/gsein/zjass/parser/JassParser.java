@@ -325,7 +325,7 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // func_name LPAREN (var_name (COLON var_name)*|empty) RPAREN
+  // func_name LPAREN ( (var_name|var_value)(COLON (var_name|var_value))*|empty) RPAREN
   public static boolean func_call(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_call")) return false;
     if (!nextTokenIs(b, ID)) return false;
@@ -339,7 +339,7 @@ public class JassParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // var_name (COLON var_name)*|empty
+  // (var_name|var_value)(COLON (var_name|var_value))*|empty
   private static boolean func_call_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_call_2")) return false;
     boolean r;
@@ -350,18 +350,27 @@ public class JassParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // var_name (COLON var_name)*
+  // (var_name|var_value)(COLON (var_name|var_value))*
   private static boolean func_call_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_call_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = var_name(b, l + 1);
+    r = func_call_2_0_0(b, l + 1);
     r = r && func_call_2_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // (COLON var_name)*
+  // var_name|var_value
+  private static boolean func_call_2_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "func_call_2_0_0")) return false;
+    boolean r;
+    r = var_name(b, l + 1);
+    if (!r) r = var_value(b, l + 1);
+    return r;
+  }
+
+  // (COLON (var_name|var_value))*
   private static boolean func_call_2_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_call_2_0_1")) return false;
     while (true) {
@@ -372,14 +381,23 @@ public class JassParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // COLON var_name
+  // COLON (var_name|var_value)
   private static boolean func_call_2_0_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "func_call_2_0_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, COLON);
-    r = r && var_name(b, l + 1);
+    r = r && func_call_2_0_1_0_1(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // var_name|var_value
+  private static boolean func_call_2_0_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "func_call_2_0_1_0_1")) return false;
+    boolean r;
+    r = var_name(b, l + 1);
+    if (!r) r = var_value(b, l + 1);
     return r;
   }
 
@@ -503,48 +521,60 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONSTANT? var_type var_name (ARRAY | (EQ var_value)?)
+  // var_type ARRAY var_name  | CONSTANT? var_type var_name (EQ var_value)?
   public static boolean global_decl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "global_decl")) return false;
     if (!nextTokenIs(b, "<global decl>", CONSTANT, TYPE_ID)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, GLOBAL_DECL, "<global decl>");
     r = global_decl_0(b, l + 1);
-    r = r && var_type(b, l + 1);
-    r = r && var_name(b, l + 1);
-    r = r && global_decl_3(b, l + 1);
+    if (!r) r = global_decl_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // CONSTANT?
+  // var_type ARRAY var_name
   private static boolean global_decl_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "global_decl_0")) return false;
-    consumeToken(b, CONSTANT);
-    return true;
-  }
-
-  // ARRAY | (EQ var_value)?
-  private static boolean global_decl_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "global_decl_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, ARRAY);
-    if (!r) r = global_decl_3_1(b, l + 1);
+    r = var_type(b, l + 1);
+    r = r && consumeToken(b, ARRAY);
+    r = r && var_name(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
+  // CONSTANT? var_type var_name (EQ var_value)?
+  private static boolean global_decl_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "global_decl_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = global_decl_1_0(b, l + 1);
+    r = r && var_type(b, l + 1);
+    r = r && var_name(b, l + 1);
+    r = r && global_decl_1_3(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // CONSTANT?
+  private static boolean global_decl_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "global_decl_1_0")) return false;
+    consumeToken(b, CONSTANT);
+    return true;
+  }
+
   // (EQ var_value)?
-  private static boolean global_decl_3_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "global_decl_3_1")) return false;
-    global_decl_3_1_0(b, l + 1);
+  private static boolean global_decl_1_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "global_decl_1_3")) return false;
+    global_decl_1_3_0(b, l + 1);
     return true;
   }
 
   // EQ var_value
-  private static boolean global_decl_3_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "global_decl_3_1_0")) return false;
+  private static boolean global_decl_1_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "global_decl_1_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, EQ);
@@ -601,7 +631,7 @@ public class JassParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LOCAL var_type var_name (ARRAY | (EQ var_value)?)
+  // LOCAL var_type ( ARRAY var_name | var_name (EQ var_value)?)
   public static boolean local_def(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "local_def")) return false;
     if (!nextTokenIs(b, LOCAL)) return false;
@@ -609,33 +639,54 @@ public class JassParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, LOCAL);
     r = r && var_type(b, l + 1);
-    r = r && var_name(b, l + 1);
-    r = r && local_def_3(b, l + 1);
+    r = r && local_def_2(b, l + 1);
     exit_section_(b, m, LOCAL_DEF, r);
     return r;
   }
 
-  // ARRAY | (EQ var_value)?
-  private static boolean local_def_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "local_def_3")) return false;
+  // ARRAY var_name | var_name (EQ var_value)?
+  private static boolean local_def_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "local_def_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = local_def_2_0(b, l + 1);
+    if (!r) r = local_def_2_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ARRAY var_name
+  private static boolean local_def_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "local_def_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, ARRAY);
-    if (!r) r = local_def_3_1(b, l + 1);
+    r = r && var_name(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // var_name (EQ var_value)?
+  private static boolean local_def_2_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "local_def_2_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = var_name(b, l + 1);
+    r = r && local_def_2_1_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (EQ var_value)?
-  private static boolean local_def_3_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "local_def_3_1")) return false;
-    local_def_3_1_0(b, l + 1);
+  private static boolean local_def_2_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "local_def_2_1_1")) return false;
+    local_def_2_1_1_0(b, l + 1);
     return true;
   }
 
   // EQ var_value
-  private static boolean local_def_3_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "local_def_3_1_0")) return false;
+  private static boolean local_def_2_1_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "local_def_2_1_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, EQ);

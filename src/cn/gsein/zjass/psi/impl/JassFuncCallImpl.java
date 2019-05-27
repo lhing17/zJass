@@ -44,4 +44,10 @@ public class JassFuncCallImpl extends ASTWrapperPsiElement implements JassFuncCa
     return PsiTreeUtil.getChildrenOfTypeAsList(this, JassVarName.class);
   }
 
+  @Override
+  @NotNull
+  public List<JassVarValue> getVarValueList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassVarValue.class);
+  }
+
 }

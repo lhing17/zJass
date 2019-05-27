@@ -16,4 +16,7 @@ public interface JassFuncCall extends PsiElement {
   @NotNull
   List<JassVarName> getVarNameList();
 
+  @NotNull
+  List<JassVarValue> getVarValueList();
+
 }
