@@ -7,10 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface JassLoopStatement extends PsiElement {
 
-  @NotNull
-  List<JassBoolExpr> getBoolExprList();
-
-  @NotNull
-  List<JassCompoundStatment> getCompoundStatmentList();
+  @Nullable
+  JassLoopBody getLoopBody();
 
 }

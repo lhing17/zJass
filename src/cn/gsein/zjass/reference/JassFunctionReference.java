@@ -2,7 +2,7 @@ package cn.gsein.zjass.reference;
 
 import cn.gsein.zjass.lang.JassIcons;
 import cn.gsein.zjass.psi.JassFuncCall;
-import cn.gsein.zjass.psi.JassFuncDef;
+import cn.gsein.zjass.psi.JassFuncDecl;
 import cn.gsein.zjass.util.JassUtil;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
@@ -31,10 +31,10 @@ public class JassFunctionReference extends PsiReferenceBase<JassFuncCall> {
     @Override
     public PsiElement resolve() {
         Project project = myElement.getProject();
-        final List<JassFuncDef> defs = JassUtil.findFunctionDefinitions(project, myElement.getFuncName().getText());
+        final List<JassFuncDecl> defs = JassUtil.findFunctionDefinitions(project, myElement.getFuncRef().getText());
         List<ResolveResult> results = new ArrayList<>();
         if (defs != null) {
-            for (JassFuncDef def : defs) {
+            for (JassFuncDecl def : defs) {
                 results.add(new PsiElementResolveResult(def));
             }
         }
@@ -45,9 +45,9 @@ public class JassFunctionReference extends PsiReferenceBase<JassFuncCall> {
     @Override
     public Object[] getVariants() {
         Project project = myElement.getProject();
-        List<JassFuncDef> defs = JassUtil.findElementsOfType(project, JassFuncDef.class);
+        List<JassFuncDecl> defs = JassUtil.findElementsOfType(project, JassFuncDecl.class);
         List<LookupElement> variants = new ArrayList<>();
-        for (final JassFuncDef def : defs) {
+        for (final JassFuncDecl def : defs) {
             if (StringUtils.isNotEmpty(def.getText())) {
                 variants.add(LookupElementBuilder.create(def).
                         withIcon(JassIcons.FILE).

@@ -3,7 +3,7 @@ package cn.gsein.zjass.util;
 import cn.gsein.zjass.lang.JassFileType;
 import cn.gsein.zjass.psi.JassFile;
 import cn.gsein.zjass.psi.JassFuncCall;
-import cn.gsein.zjass.psi.JassFuncDef;
+import cn.gsein.zjass.psi.JassFuncDecl;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
@@ -33,7 +33,7 @@ public class JassUtil {
     public static List<JassFuncCall> findFunctionCalls(Project project, String functionName) {
         List<JassFuncCall> list = findElementsOfType(project, JassFuncCall.class);
         if (list == null) return null;
-        return list.stream().filter(jassFuncCall -> functionName.equals(jassFuncCall.getFuncName().getText())).collect(Collectors.toList());
+        return list.stream().filter(jassFuncCall -> functionName.equals(jassFuncCall.getFuncRef().getText())).collect(Collectors.toList());
     }
 
     /**
@@ -42,8 +42,8 @@ public class JassUtil {
      * @param project 工程
      * @return 函数定义
      */
-    public static List<JassFuncDef> findFunctionDefinitions(Project project, String functionName) {
-        List<JassFuncDef> list = findElementsOfType(project, JassFuncDef.class);
+    public static List<JassFuncDecl> findFunctionDefinitions(Project project, String functionName) {
+        List<JassFuncDecl> list = findElementsOfType(project, JassFuncDecl.class);
         if (list == null) return null;
         return list.stream().filter(jassFuncDef -> functionName.equals(jassFuncDef.getFuncName().getText())).collect(Collectors.toList());
     }

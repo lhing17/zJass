@@ -12,11 +12,11 @@ import org.jetbrains.annotations.NotNull;
  * @date 2019/05/14
  */
 public class JassPsiImplUtil {
-    public static String getName(JassFuncDef def) {
+    public static String getName(JassFuncDecl def) {
         return def.getFuncName().getText();
     }
 
-    public static PsiElement setName(JassFuncDef def, @NotNull String newName) {
+    public static PsiElement setName(JassFuncDecl def, @NotNull String newName) {
         ASTNode keyNode = def.getNode().findChildByType(JassTypes.FUNC_NAME);
         if (keyNode != null) {
             JassFuncName funcName = JassElementFactory.createFunctionName(def.getProject(), newName);
@@ -27,7 +27,7 @@ public class JassPsiImplUtil {
     }
 
 
-    public static PsiElement getNameIdentifier(JassFuncDef def) {
+    public static PsiElement getNameIdentifier(JassFuncDecl def) {
         ASTNode keyNode = def.getNode().findChildByType(JassTypes.FUNC_NAME);
         if (keyNode != null) {
             return keyNode.getPsi();

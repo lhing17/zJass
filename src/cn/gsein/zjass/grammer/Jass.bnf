@@ -15,34 +15,120 @@
     psiImplUtilClass = "cn.gsein.zjass.psi.impl.JassPsiImplUtil"
 }
 
-jassFile ::= item_*
+jassFile ::=  item_*
 
-private item_ ::=  (include_statement|global_block|type_def|native_def|func|comment)
+private item_ ::=  (include_statement|global_block|type_decl|native_decl|func|comment)
 include_statement ::= (NUMBER_SIGN INCLUDE DOUBLE_QUOTE STRING_LITERAL? DOUBLE_QUOTE)
+
 global_block ::= (GLOBALS (global_decl|comment)* ENDGLOBALS)
-global_decl ::= (var_type ARRAY var_name  | CONSTANT? var_type var_name (EQ var_value)?)
-var_type ::= TYPE_ID
+global_decl ::= (var_type ARRAY var_name | CONSTANT? var_type var_name (ASSIGN_OP expr)?)
+
+var_type ::= ID
 var_name ::= ID
-var_value ::= (string_expr (PLUS string_expr)*|number_expr|NULL)
-string_expr ::= DOUBLE_QUOTE STRING_LITERAL? DOUBLE_QUOTE | func_call
-number_expr ::= term (MINUS|PLUS term)*
-term ::= factor (MUL|DIV factor) *
-factor ::= func_call|MINUS factor| PLUS factor|LPAREN expr RPAREN|var_name|INTEGER_LITERAL|REAL_LITERAL
-func_call ::= func_name LPAREN ( (var_name|var_value)(COLON (var_name|var_value))*|empty) RPAREN
-empty ::=
+var_ref ::= ID
 func_name ::= ID
-type_def ::= TYPE var_type EXTENDS var_type
-native_def ::= CONSTANT? NATIVE func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*) RETURNS (NOTHING | var_type)
-func ::= func_def comment* local_def* compound_statment ENDFUNCTION
-func_def ::= FUNCTION func_name TAKES (NOTHING | var_type var_name (COLON var_type var_name)*)
-    RETURNS (NOTHING | var_type) {mixin="cn.gsein.zjass.psi.impl.JassNamedElementImpl"
-    implements="cn.gsein.zjass.psi.JassNamedElement" methods=[getName setName getNameIdentifier]}
-local_def ::= LOCAL var_type ( ARRAY var_name | var_name (EQ var_value)?)
-compound_statment ::= (comment|call_statement|assign_statement|condition_statement|loop_statement)* return_statement?
+type_ref ::= ID
+func_ref ::= ID
+
+
+expr ::= (number_expr|string_expr|handle_expr|null_expr|code_expr|bool_expr)
+
+handle_expr ::= handle_literal|handle_parens|any_expr_atom
+handle_literal ::= null_literal
+handle_parens ::= LPAREN handle_expr RPAREN
+
+code_expr ::= code_literal|code_parens|any_expr_atom
+code_literal ::= FUNCTION func_ref | null_literal
+code_parens ::= LPAREN code_expr RPAREN
+
+null_expr ::= null_literal | null_parens | any_expr_atom
+null_parens ::= LPAREN null_expr RPAREN
+
+bool_expr ::= bool_maybe_disjunct
+bool_maybe_disjunct ::= bool_maybe_conjunct (OR bool_maybe_conjunct)*
+bool_maybe_conjunct ::= bool_maybe_full_relation (AND bool_maybe_full_relation)*
+bool_maybe_full_relation ::= bool_full_relation | bool_maybe_num_order_relation
+bool_full_relation ::= bool_null_relation |  bool_handle_relation | bool_code_relation | bool_bool_relation | bool_num_relation | bool_string_relation
+bool_null_relation ::= null_expr bool_relation_op null_expr
+bool_handle_relation ::= handle_expr bool_relation_op handle_expr
+bool_code_relation ::= code_expr bool_relation_op code_expr
+bool_bool_relation ::= bool_maybe_num_order_relation bool_relation_op bool_maybe_num_order_relation
+bool_num_relation ::= number_expr bool_relation_op number_expr
+bool_string_relation ::= string_expr bool_relation_op string_expr
+bool_maybe_num_order_relation ::= bool_num_order_relation | bool_maybe_unary
+bool_num_order_relation ::= number_expr bool_num_order_relation_op number_expr
+bool_maybe_unary ::= NOT bool_maybe_unary | bool_atom
+bool_atom ::= BOOL_LITERAL | bool_parens | any_expr_atom
+bool_parens ::= LPAREN bool_expr RPAREN
+bool_relation_op ::= EQUAL | UNEQUAL
+bool_num_order_relation_op ::= LESS | LESS_EQUAL | GREATER |GREATER_EQUAL
+
+number_expr::=  real_expr | int_expr
+
+int_expr ::= int_maybe_sum
+int_maybe_sum ::= int_maybe_prod (num_sum_op int_maybe_prod)*
+int_maybe_prod ::= int_maybe_unary (num_prod_op int_maybe_unary)*
+int_maybe_unary ::= num_unary_op int_maybe_unary | int_atom
+int_atom ::= int_literal | int_parens | any_expr_atom
+int_literal ::= ID_INT_LITERAL | DEC_INT_LITERAL | OCT_INT_LITERAL | HEX_INT_LITERAL
+int_parens ::= LPAREN int_expr RPAREN
+
+real_expr ::= real_maybe_sum
+real_maybe_sum ::= real_maybe_prod (num_sum_op real_maybe_prod)*
+real_maybe_prod ::= real_maybe_unary (num_prod_op real_maybe_unary)*
+real_maybe_unary ::= num_unary_op real_maybe_unary | real_atom
+real_atom ::= int_atom | REAL_LITERAL | real_parens | any_expr_atom
+real_parens ::= LPAREN real_expr RPAREN
+num_sum_op ::= PLUS | MINUS
+num_prod_op ::= MUL | DIV | MOD
+num_unary_op ::= PLUS | MINUS
+
+string_expr ::= string_maybe_concat
+string_maybe_concat ::= string_atom (string_concat_op string_atom)*
+string_atom ::= string_literals | string_parens | any_expr_atom
+string_literals ::= STRING_LITERAL | null_literal
+string_parens ::= LPAREN string_expr RPAREN
+string_concat_op ::= PLUS
+
+any_expr_atom ::= func_call | array_read |var_ref
+func_call ::= func_ref LPAREN arg_list RPAREN
+arg_list ::= (expr (COMMA expr)*)?
+array_read ::= var_ref LBRACKET int_expr RBRACKET
+
+null_literal ::= NULL
+
+type_decl ::= TYPE var_type EXTENDS type_ref
+
+native_decl ::= CONSTANT? NATIVE func_name TAKES func_parm_list RETURNS func_return_type
+
+func ::= func_decl (func_body)? ENDFUNCTION
+func_decl ::= CONSTANT? FUNCTION func_name TAKES func_parm_list RETURNS func_return_type
+func_parm_list ::= NOTHING | func_param (COMMA func_param)*
+func_param ::= type_ref var_name
+func_body ::=  local_var_decl_list statement_list
+func_return_type ::= NOTHING | type_ref
+local_var_decl_list ::= (comment |local_var_decl)*
+local_var_decl ::= LOCAL type_ref (ARRAY var_name | var_name (ASSIGN_OP expr)?)
+
+statement_list ::= statement*
+statement ::= comment|call_statement | set_var | condition_statement | loop_statement | exitwhen_statement | rule_return | debug_statement
+
+condition_statement ::= IF condition THEN statement_list? selection_elseif_branch* selection_else_branch? ENDIF
+condition ::= bool_expr
+selection_elseif_branch ::= ELSEIF condition THEN statement_list?
+selection_else_branch ::= ELSE statement_list?
+
+loop_statement ::= LOOP loop_body? ENDLOOP
+loop_body ::= statement_list
+
+exitwhen_statement ::= EXITWHEN condition
+
+rule_return ::= RETURN expr
+
+debug_statement ::= DEBUG (call_statement | set_var | condition_statement | loop_statement)
+
+
 call_statement ::= CALL func_call
-assign_statement ::= SET var_name EQ var_value
-condition_statement ::= IF bool_expr THEN compound_statment ((ELSEIF compound_statment)* ELSE compound_statment)? ENDIF
-bool_expr ::= number_expr (GT | DOUBLE_EQ | LT | LE | GE) number_expr | string_expr DOUBLE_EQ string_expr | var_name | func_call | NOT bool_expr
-loop_statement ::= LOOP ( EXITWHEN bool_expr|compound_statment)* ENDLOOP
-return_statement ::= RETURN var_value
+set_var ::= SET var_ref(LBRACKET int_expr RBRACKET)? ASSIGN_OP expr
+
 comment ::= EOL_COMMENT | MUL_COMMENT

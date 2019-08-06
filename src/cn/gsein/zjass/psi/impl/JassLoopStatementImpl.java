@@ -27,15 +27,9 @@ public class JassLoopStatementImpl extends ASTWrapperPsiElement implements JassL
   }
 
   @Override
-  @NotNull
-  public List<JassBoolExpr> getBoolExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassBoolExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<JassCompoundStatment> getCompoundStatmentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassCompoundStatment.class);
+  @Nullable
+  public JassLoopBody getLoopBody() {
+    return findChildByClass(JassLoopBody.class);
   }
 
 }

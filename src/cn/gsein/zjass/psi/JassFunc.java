@@ -7,16 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface JassFunc extends PsiElement {
 
-  @NotNull
-  List<JassComment> getCommentList();
+  @Nullable
+  JassFuncBody getFuncBody();
 
   @NotNull
-  JassCompoundStatment getCompoundStatment();
-
-  @NotNull
-  JassFuncDef getFuncDef();
-
-  @NotNull
-  List<JassLocalDef> getLocalDefList();
+  JassFuncDecl getFuncDecl();
 
 }

@@ -28,14 +28,26 @@ public class JassConditionStatementImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public JassBoolExpr getBoolExpr() {
-    return findNotNullChildByClass(JassBoolExpr.class);
+  public JassCondition getCondition() {
+    return findNotNullChildByClass(JassCondition.class);
+  }
+
+  @Override
+  @Nullable
+  public JassSelectionElseBranch getSelectionElseBranch() {
+    return findChildByClass(JassSelectionElseBranch.class);
   }
 
   @Override
   @NotNull
-  public List<JassCompoundStatment> getCompoundStatmentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassCompoundStatment.class);
+  public List<JassSelectionElseifBranch> getSelectionElseifBranchList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassSelectionElseifBranch.class);
+  }
+
+  @Override
+  @Nullable
+  public JassStatementList getStatementList() {
+    return findChildByClass(JassStatementList.class);
   }
 
 }

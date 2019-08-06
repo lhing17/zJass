@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public class JassParserDefinition implements ParserDefinition {
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
     public static final TokenSet COMMENTS = TokenSet.create(JassTypes.COMMENT);
+    public static final TokenSet STRING_LITERALS = TokenSet.create(JassTypes.STRING_LITERAL);
 
     public static final IFileElementType FILE = new IFileElementType(JassLanguage.INSTANCE);
     @NotNull
@@ -57,7 +58,7 @@ public class JassParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public TokenSet getStringLiteralElements() {
-        return TokenSet.EMPTY;
+        return STRING_LITERALS;
     }
 
     @NotNull

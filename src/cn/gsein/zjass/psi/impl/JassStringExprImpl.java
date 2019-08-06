@@ -27,9 +27,9 @@ public class JassStringExprImpl extends ASTWrapperPsiElement implements JassStri
   }
 
   @Override
-  @Nullable
-  public JassFuncCall getFuncCall() {
-    return findChildByClass(JassFuncCall.class);
+  @NotNull
+  public JassStringMaybeConcat getStringMaybeConcat() {
+    return findNotNullChildByClass(JassStringMaybeConcat.class);
   }
 
 }

@@ -19,7 +19,7 @@ public class JassFunctionReferenceProvider extends PsiReferenceProvider {
                                                  @NotNull ProcessingContext processingContext) {
         if (psiElement instanceof JassFuncCall) {
             JassFuncCall jassFuncCall = (JassFuncCall) psiElement;
-            String functionName = jassFuncCall.getFuncName().getText();
+            String functionName = jassFuncCall.getFuncRef().getText();
             if (StringUtils.isNotEmpty(functionName)) {
                 return new PsiReference[]{new JassFunctionReference(jassFuncCall)};
             }

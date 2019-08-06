@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface JassStringExpr extends PsiElement {
 
-  @Nullable
-  JassFuncCall getFuncCall();
+  @NotNull
+  JassStringMaybeConcat getStringMaybeConcat();
 
 }

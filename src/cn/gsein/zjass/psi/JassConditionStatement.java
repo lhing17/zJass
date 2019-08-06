@@ -8,9 +8,15 @@ import com.intellij.psi.PsiElement;
 public interface JassConditionStatement extends PsiElement {
 
   @NotNull
-  JassBoolExpr getBoolExpr();
+  JassCondition getCondition();
+
+  @Nullable
+  JassSelectionElseBranch getSelectionElseBranch();
 
   @NotNull
-  List<JassCompoundStatment> getCompoundStatmentList();
+  List<JassSelectionElseifBranch> getSelectionElseifBranchList();
+
+  @Nullable
+  JassStatementList getStatementList();
 
 }

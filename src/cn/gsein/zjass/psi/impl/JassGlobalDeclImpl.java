@@ -27,6 +27,12 @@ public class JassGlobalDeclImpl extends ASTWrapperPsiElement implements JassGlob
   }
 
   @Override
+  @Nullable
+  public JassExpr getExpr() {
+    return findChildByClass(JassExpr.class);
+  }
+
+  @Override
   @NotNull
   public JassVarName getVarName() {
     return findNotNullChildByClass(JassVarName.class);
@@ -36,12 +42,6 @@ public class JassGlobalDeclImpl extends ASTWrapperPsiElement implements JassGlob
   @NotNull
   public JassVarType getVarType() {
     return findNotNullChildByClass(JassVarType.class);
-  }
-
-  @Override
-  @Nullable
-  public JassVarValue getVarValue() {
-    return findChildByClass(JassVarValue.class);
   }
 
 }

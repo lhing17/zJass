@@ -27,33 +27,9 @@ public class JassBoolExprImpl extends ASTWrapperPsiElement implements JassBoolEx
   }
 
   @Override
-  @Nullable
-  public JassBoolExpr getBoolExpr() {
-    return findChildByClass(JassBoolExpr.class);
-  }
-
-  @Override
-  @Nullable
-  public JassFuncCall getFuncCall() {
-    return findChildByClass(JassFuncCall.class);
-  }
-
-  @Override
   @NotNull
-  public List<JassNumberExpr> getNumberExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassNumberExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<JassStringExpr> getStringExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassStringExpr.class);
-  }
-
-  @Override
-  @Nullable
-  public JassVarName getVarName() {
-    return findChildByClass(JassVarName.class);
+  public JassBoolMaybeDisjunct getBoolMaybeDisjunct() {
+    return findNotNullChildByClass(JassBoolMaybeDisjunct.class);
   }
 
 }

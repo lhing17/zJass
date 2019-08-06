@@ -27,9 +27,15 @@ public class JassNumberExprImpl extends ASTWrapperPsiElement implements JassNumb
   }
 
   @Override
-  @NotNull
-  public List<JassTerm> getTermList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassTerm.class);
+  @Nullable
+  public JassIntExpr getIntExpr() {
+    return findChildByClass(JassIntExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public JassRealExpr getRealExpr() {
+    return findChildByClass(JassRealExpr.class);
   }
 
 }

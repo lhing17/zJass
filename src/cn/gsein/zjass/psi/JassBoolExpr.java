@@ -7,19 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface JassBoolExpr extends PsiElement {
 
-  @Nullable
-  JassBoolExpr getBoolExpr();
-
-  @Nullable
-  JassFuncCall getFuncCall();
-
   @NotNull
-  List<JassNumberExpr> getNumberExprList();
-
-  @NotNull
-  List<JassStringExpr> getStringExprList();
-
-  @Nullable
-  JassVarName getVarName();
+  JassBoolMaybeDisjunct getBoolMaybeDisjunct();
 
 }

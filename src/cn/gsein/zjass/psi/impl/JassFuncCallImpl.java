@@ -27,27 +27,15 @@ public class JassFuncCallImpl extends ASTWrapperPsiElement implements JassFuncCa
   }
 
   @Override
-  @Nullable
-  public JassEmpty getEmpty() {
-    return findChildByClass(JassEmpty.class);
+  @NotNull
+  public JassArgList getArgList() {
+    return findNotNullChildByClass(JassArgList.class);
   }
 
   @Override
   @NotNull
-  public JassFuncName getFuncName() {
-    return findNotNullChildByClass(JassFuncName.class);
-  }
-
-  @Override
-  @NotNull
-  public List<JassVarName> getVarNameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassVarName.class);
-  }
-
-  @Override
-  @NotNull
-  public List<JassVarValue> getVarValueList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, JassVarValue.class);
+  public JassFuncRef getFuncRef() {
+    return findNotNullChildByClass(JassFuncRef.class);
   }
 
 }

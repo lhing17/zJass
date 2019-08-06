@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface JassNumberExpr extends PsiElement {
 
-  @NotNull
-  List<JassTerm> getTermList();
+  @Nullable
+  JassIntExpr getIntExpr();
+
+  @Nullable
+  JassRealExpr getRealExpr();
 
 }

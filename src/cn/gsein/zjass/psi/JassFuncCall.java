@@ -7,16 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface JassFuncCall extends PsiElement {
 
-  @Nullable
-  JassEmpty getEmpty();
+  @NotNull
+  JassArgList getArgList();
 
   @NotNull
-  JassFuncName getFuncName();
-
-  @NotNull
-  List<JassVarName> getVarNameList();
-
-  @NotNull
-  List<JassVarValue> getVarValueList();
+  JassFuncRef getFuncRef();
 
 }

@@ -7,13 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface JassGlobalDecl extends PsiElement {
 
+  @Nullable
+  JassExpr getExpr();
+
   @NotNull
   JassVarName getVarName();
 
   @NotNull
   JassVarType getVarType();
-
-  @Nullable
-  JassVarValue getVarValue();
 
 }
